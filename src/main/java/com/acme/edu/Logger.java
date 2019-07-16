@@ -5,11 +5,11 @@ import static java.lang.System.lineSeparator;
 public class Logger {
     private static String primitive = "primitive";
     private static int value;
-    private static String lastString;
-    private static int numberOfString;
-
     private static boolean cleanBuffer;
     private static String buf;
+
+    private static String lastString;
+    private static int numberOfString;
 
     static {
         cleanBuffer = false;
@@ -51,11 +51,33 @@ public class Logger {
         lastString = message;
     }
 
-
     public static void flash() {
         cleanBuf();
         saveLogStr("");
         System.out.println(buf);
+    }
+
+    private  static String splitMassive (int [] massive) {
+        String newMessage = "{";
+        for (int i = 0; i < massive.length - 1; i++ ){
+            newMessage += String.valueOf(massive[i]) + ", ";
+        }
+        newMessage += String.valueOf(massive[massive.length - 1]) + "}";
+        return newMessage;
+
+    }
+    public static void log (int [][] message) {
+        String newMessage = "{" + lineSeparator();
+        for (int [] current: message) {
+            newMessage += splitMassive(current) + lineSeparator();
+        }
+        newMessage += "}";
+        saveLog(primitive + "s matrix",newMessage);
+    }
+
+    public static void log (int [] message) {
+        saveLogStr("");
+        saveLog(primitive + "s array",splitMassive(message));
     }
 
     public static void log(int message) {
@@ -88,6 +110,12 @@ public class Logger {
         saveLog(type, String.valueOf(message));
     }
 
+    public static void log (String ... message) {
+        for (String current: message){
+            log (current);
+        }
+    }
+
     public static void log(String message) {
         if (lastString.equals(message)  ) {
             numberOfString++;
@@ -110,8 +138,4 @@ public class Logger {
         }
         saveLog(type, String.valueOf(message));
     }
-
-
-
-
 }
