@@ -4,6 +4,15 @@ import static com.acme.edu.CommandType.*;
 import static java.lang.System.lineSeparator;
 
 public class Logger {
+
+    private Command cmd;
+    private Command lastCmd;
+
+    //private StringCommand strLog = new StringCommand();
+    //private IntCommand intLog = new IntCommand();
+    //private ByteCommand byteLog = new ByteCommand();
+    //private IntOneDimMassiveCommand intMassiveLog = new IntOneDimMassiveCommand();
+
     private static String primitive = "primitive";
     private static int value;
     private static boolean cleanBuffer;
@@ -13,13 +22,14 @@ public class Logger {
     private static int numberOfString;
     public static CommandType currentType = NONE;
 
-    static {
+    public Logger() {
         cleanBuffer = false;
         value = 0;
-        buf = "";
         numberOfString = 0;
         lastString = "";
     }
+
+
 
     private static void cleanBuf(){
         if (cleanBuffer) {
@@ -47,10 +57,8 @@ public class Logger {
         }
     }
 
-    public static void flash() {
-        cleanBuf();
-        saveLogStr();
-        System.out.println(buf);
+    public void flash() {
+        lastCmd.clean();
     }
 
     private  static String splitMassive (int [] massive) {
@@ -60,12 +68,8 @@ public class Logger {
         }
         newMessage += String.valueOf(massive[massive.length - 1]) + "}";
         return newMessage;
-
     }
 
-    public void log (Command message) {
-
-    }
     public static void log (int [][] message) {
         String newMessage = "{" + lineSeparator();
         for (int [] current: message) {
@@ -75,67 +79,38 @@ public class Logger {
         saveLog(primitive + "s matrix",newMessage);
     }
 
-    public static void log (int [] message) {
-        switch (currentType){
-            case BYTE:
-                cleanBuf();
-                break;
-            case STRING:
-                saveLogStr();
-                break;
-            default:
-                break;
+    public void log (int [] message) {
+        cmd = new IntOneDimMassiveCommand(message);
+        cmd.acc(lastCmd);
+        cmd.handle();
+        lastCmd = cmd;
+        //intMassiveLog.handle(message);
+        currentType = MASSIVE_INT;
+    }
+
+    public void log(int message) {
+        cmd = new IntCommand(message);
+        cmd.acc(lastCmd);
+        cmd.handle();
+        lastCmd = cmd;
+        /*if ((currentType != INT) && (currentType != NONE)) {
+            strLog.clean();
+            byteLog.clean();
         }
-        saveLog(primitive + "s array",splitMassive(message));
+        intLog.handle(message);*/
         currentType = INT;
     }
 
-    public static void log(int message) {
-        //saveLogStr("");
-        switch (currentType){
-            case BYTE:
-                cleanBuf();
-                break;
-            case STRING:
-                saveLogStr();
-                numberOfString = 0;
-                lastString = "";
-                break;
-            default:
-                break;
+    public void log(byte message) {
+        cmd = new ByteCommand(message);
+        cmd.acc(lastCmd);
+        cmd.handle();
+        lastCmd = cmd;
+       /* if ((currentType != BYTE) && (currentType != NONE)) {
+            intLog.clean();
+            strLog.clean();
         }
-        long result = (long) message + value;
-        if (result >= (long) Integer.MAX_VALUE) {
-            if (cleanBuffer) cleanBuf();
-            saveLog(primitive, String.valueOf(message));
-            return;
-            }
-        cleanBuffer = true;
-        value += message;
-        currentType = INT;
-    }
-
-    public static void log(byte message) {
-        switch (currentType){
-            case INT:
-                cleanBuf();
-                break;
-            case STRING:
-                saveLogStr();
-                numberOfString = 0;
-                lastString = "";
-                break;
-            default:
-                break;
-        }
-        int result = message + value;
-        if ( result >= (int) Byte.MAX_VALUE){
-            if (cleanBuffer) cleanBuf();
-            saveLog(primitive, String.valueOf(message));
-            return;
-        }
-        cleanBuffer = true;
-        value += message;
+        byteLog.handle(message);*/
         currentType = BYTE;
     }
 
@@ -145,20 +120,27 @@ public class Logger {
         saveLog(type, String.valueOf(message));
     }
 
-    public static void log (String ... message) {
+    public void log (String ... message) {
         for (String current: message){
             log (current);
         }
     }
 
-    public static void log(String message) {
-        if (lastString.equals(message)  ) {
-            numberOfString++;
-        } else {
-            saveLogStr();
-            numberOfString = 1;
-            lastString = message;
+    public void log(Command cmd) {
+        cmd.acc(lastCmd);
+        cmd.handle();
+        lastCmd = cmd;
+    }
+    public void log(String message) {
+        cmd = new StringCommand(message);
+        cmd.acc(lastCmd);
+        cmd.handle();
+        lastCmd = cmd;
+        /*if ((currentType != STRING) && (currentType != NONE))  {
+            intLog.clean();
+            byteLog.clean();
         }
+        strLog.handle(message);*/
         currentType = STRING;
     }
 

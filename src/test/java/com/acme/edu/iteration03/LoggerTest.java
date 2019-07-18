@@ -1,5 +1,7 @@
 package com.acme.edu.iteration03;
 
+import com.acme.edu.IntMatrixCommand;
+import com.acme.edu.IntOneDimMassiveCommand;
 import com.acme.edu.Logger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
@@ -26,11 +28,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
 
-    @Test
+   @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
-        Logger.log(new int[] {-1, 0, 1});
-        Logger.flash();
+       Logger tmp = new Logger();
+       tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
+       tmp.flash();
         //endregion
 
         //region then
@@ -38,11 +41,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    @Test
+   @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
-        Logger.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
-        Logger.flash();
+
+        Logger tmp = new Logger();
+        tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
+        tmp.flash();
         //endregion
 
         //region then
@@ -57,8 +62,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
-        Logger.log("str1", "string 2", "str 3");
-        Logger.flash();
+        Logger tmp = new Logger();
+        tmp.log("str1", "string 2", "str 3");
+        tmp.flash();
         //endregion
 
         //region then
