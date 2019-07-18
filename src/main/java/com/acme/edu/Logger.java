@@ -1,5 +1,6 @@
 package com.acme.edu;
 
+import static com.acme.edu.CommandType.*;
 import static java.lang.System.lineSeparator;
 
 public class Logger {
@@ -10,6 +11,7 @@ public class Logger {
 
     private static String lastString;
     private static int numberOfString;
+    public static CommandType currentType = NONE;
 
     static {
         cleanBuffer = false;
@@ -32,7 +34,7 @@ public class Logger {
         buf += type + ": "+ message + lineSeparator();
     }
 
-    private static void saveLogStr (String message){
+    private static void saveLogStr (){
         String type = "string";
         switch (numberOfString) {
             case 0:
@@ -43,17 +45,11 @@ public class Logger {
             default:
                 saveLog(type, String.valueOf(lastString) + " (x" + String.valueOf(numberOfString) + ")");
         }
-        if (message == "") {
-            numberOfString = 0;
-        } else {
-            numberOfString = 1;
-        }
-        lastString = message;
     }
 
     public static void flash() {
         cleanBuf();
-        saveLogStr("");
+        saveLogStr();
         System.out.println(buf);
     }
 
@@ -66,6 +62,10 @@ public class Logger {
         return newMessage;
 
     }
+
+    public void log (Command message) {
+
+    }
     public static void log (int [][] message) {
         String newMessage = "{" + lineSeparator();
         for (int [] current: message) {
@@ -76,24 +76,58 @@ public class Logger {
     }
 
     public static void log (int [] message) {
-        saveLogStr("");
+        switch (currentType){
+            case BYTE:
+                cleanBuf();
+                break;
+            case STRING:
+                saveLogStr();
+                break;
+            default:
+                break;
+        }
         saveLog(primitive + "s array",splitMassive(message));
+        currentType = INT;
     }
 
     public static void log(int message) {
-        saveLogStr("");
+        //saveLogStr("");
+        switch (currentType){
+            case BYTE:
+                cleanBuf();
+                break;
+            case STRING:
+                saveLogStr();
+                numberOfString = 0;
+                lastString = "";
+                break;
+            default:
+                break;
+        }
         long result = (long) message + value;
-        if ( result >= (long) Integer.MAX_VALUE){
+        if (result >= (long) Integer.MAX_VALUE) {
             if (cleanBuffer) cleanBuf();
             saveLog(primitive, String.valueOf(message));
             return;
-        }
+            }
         cleanBuffer = true;
         value += message;
+        currentType = INT;
     }
 
     public static void log(byte message) {
-        saveLogStr("");
+        switch (currentType){
+            case INT:
+                cleanBuf();
+                break;
+            case STRING:
+                saveLogStr();
+                numberOfString = 0;
+                lastString = "";
+                break;
+            default:
+                break;
+        }
         int result = message + value;
         if ( result >= (int) Byte.MAX_VALUE){
             if (cleanBuffer) cleanBuf();
@@ -102,10 +136,11 @@ public class Logger {
         }
         cleanBuffer = true;
         value += message;
+        currentType = BYTE;
     }
 
     public static void log(char message) {
-        saveLogStr("");
+        saveLogStr();
         String type = "char";
         saveLog(type, String.valueOf(message));
     }
@@ -120,17 +155,20 @@ public class Logger {
         if (lastString.equals(message)  ) {
             numberOfString++;
         } else {
-            saveLogStr(message);
+            saveLogStr();
+            numberOfString = 1;
+            lastString = message;
         }
+        currentType = STRING;
     }
 
     public static void log(boolean message) {
-        saveLogStr("");
+        saveLogStr();
         saveLog(primitive, String.valueOf(message));
     }
 
     public static void log(Object message) {
-        saveLogStr("");
+        saveLogStr();
         String type = "reference";
         if (message == null) {
             saveLog(type, "@null");
@@ -138,4 +176,6 @@ public class Logger {
         }
         saveLog(type, String.valueOf(message));
     }
+
+
 }
