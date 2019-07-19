@@ -21,6 +21,11 @@ public class IntCommand implements Command {
     }
 
     @Override
+    public boolean isSimilarType(Command cmd) {
+        return cmd instanceof IntCommand;
+    }
+
+    @Override
     public void handle() {
         if (checkOverflow()) {
             clean();
@@ -42,9 +47,8 @@ public class IntCommand implements Command {
     @Override
     public void acc(Command lastCmd) {
         if (lastCmd == null) return;
-        if (lastCmd instanceof IntCommand) {
+        if (isSimilarType(lastCmd)) {
             value = ((IntCommand) lastCmd).getValue();
-
             return;
         }
         lastCmd.clean();

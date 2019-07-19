@@ -7,13 +7,12 @@ public class IntOneDimMassiveCommand extends IntMassivesCommand{
     }
 
     @Override
-    public String decor() {
-        return "primitives array: " + splitMassive();
+    public boolean isSimilarType(Command cmd) {
+        return false;
     }
 
     @Override
-    public void acc(Command lastCmd) {
-        if (lastCmd == null) return;
-        lastCmd.clean();
+    public String decor() {
+        return "primitives array: " + splitMassive();
     }
 }

@@ -1,9 +1,6 @@
 package com.acme.edu.iteration03;
 
-import com.acme.edu.IntMatrixCommand;
-import com.acme.edu.IntOneDimMassiveCommand;
-import com.acme.edu.Logger;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +41,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
    @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
-
         Logger tmp = new Logger();
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
         tmp.flash();
@@ -59,7 +55,31 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
+
+
+
     @Test
+    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
+        //region when
+        Logger tmp = new Logger();
+
+        tmp.log(new IntCommand(1));
+        tmp.log(new StringCommand("str"));
+        tmp.log(new IntCommand(Integer.MAX_VALUE - 10));
+        tmp.log(new IntCommand(11));
+        tmp.flash();
+        //endregion
+
+        //region then
+        assertSysoutContains("1");
+        assertSysoutContains("str");
+        int i = Integer.MAX_VALUE - 10;
+        assertSysoutContains(String.valueOf(i));
+        assertSysoutContains("11");
+        //endregion
+    }
+
+    /*    @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
         Logger tmp = new Logger();
@@ -74,25 +94,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("string 2" + newLine);
         assertSysoutContains("str 3" + newLine);
         //endregion
-    }
- /*
-    TODO: implement Logger solution to match specification as tests
-    @Test
-    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
-        //region when
-        Logger.log(1);
-        Logger.log("str");
-        Logger.log(Integer.MAX_VALUE - 10);
-        Logger.log(11);
-        //endregion
-
-        //region then
-        //assertSysoutContains(1);
-        assertSysoutContains("str");
-       // assertSysoutContains(Integer.MAX_VALUE - 10);
-        //assertSysoutContains(11);
-        //endregion
-    }
+    }*/
+    /*  TODO: implement Logger solution to match specification as tests
         @Test
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
         //region when

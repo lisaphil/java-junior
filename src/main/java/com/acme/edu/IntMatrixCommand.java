@@ -10,21 +10,18 @@ public class IntMatrixCommand extends IntMassivesCommand {
     }
 
     @Override
+    public boolean isSimilarType(Command cmd) {
+        return false;
+    }
+
+    @Override
     public String decor() {
         String newMessage = "{" + lineSeparator();
         for (int [] current: messageTwoDim) {
             message = current;
             newMessage += splitMassive() + lineSeparator();
         }
-        newMessage += "}";
+        newMessage += "}" + lineSeparator();
         return "primitives matrix: " + newMessage;
-        //saveLog(primitive + "s matrix",newMessage);
-       // return null;
-    }
-
-    @Override
-    public void acc(Command lastCmd) {
-        if (lastCmd == null) return;
-        lastCmd.clean();
     }
 }

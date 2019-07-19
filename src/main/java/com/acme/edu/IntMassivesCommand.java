@@ -23,7 +23,10 @@ public abstract class IntMassivesCommand implements Command {
         System.out.print(decor());
     }
 
-    public abstract void acc(Command lastCmd);
+    public void acc(Command lastCmd){
+        if (lastCmd == null) return;
+        lastCmd.clean();
+    }
 
     public abstract String decor();
 }

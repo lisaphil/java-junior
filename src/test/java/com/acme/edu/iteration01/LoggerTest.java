@@ -53,30 +53,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        //assertSysoutContains("1");
-        //assertSysoutContains("0");
-        //assertSysoutContains("-1");
         //endregion
     }
 
-
-
-/*    @Test
-    public void shouldLogChar() throws IOException {
-        //region when
-        Logger tmp = new Logger();
-
-        tmp.log('a');
-        tmp.log('b');
-        tmp.flash();
-        //endregion
-
-        //region then
-        assertSysoutContains("char: ");
-        //assertSysoutContains("a");
-        //assertSysoutContains("b");
-        //endregion
-    }*/
 
     @Test
     public void shouldLogString() throws IOException {
@@ -94,38 +73,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
-
-/*    @Test
-    public void shouldLogBoolean() throws IOException {
-        //region when
-        Logger tmp = new Logger();
-
-        tmp.log(true);
-        tmp.log(false);
-        tmp.flash();
-        //endregion
-
-        //region then
-        assertSysoutContains("primitive: ");
-        //assertSysoutContains("true");
-        //assertSysoutContains("false");
-        //endregion
-    }*/
-
-    /*@Test
-    public void shouldLogReference() throws IOException {
-        //region when
-        Logger tmp = new Logger();
-
-        tmp.log(new Object());
-        tmp.flash();
-        //endregion
-
-        //region then
-        assertSysoutContains("reference: ");
-        assertSysoutContains("@");
-        //endregion
-    }*/
     /*
     TODO: implement Logger solution to match specification as tests
     */

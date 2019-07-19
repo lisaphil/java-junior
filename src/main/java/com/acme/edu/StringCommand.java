@@ -13,7 +13,7 @@ public class StringCommand implements Command {
         lastMessage = "";
     }
 
-    private boolean isSimilar() {
+    private boolean isSimilarValue() {
         return message.equals(lastMessage);
     }
 
@@ -26,8 +26,13 @@ public class StringCommand implements Command {
     }
 
     @Override
+    public boolean isSimilarType(Command cmd) {
+        return cmd instanceof StringCommand;
+    }
+
+    @Override
     public void handle() {
-        if (isSimilar()) {
+        if (isSimilarValue()) {
             numberOfString++;
         } else {
             clean();
@@ -38,10 +43,11 @@ public class StringCommand implements Command {
 
     @Override
     public void clean() {
-        System.out.print(decor());
-        numberOfString = 0;
-        lastMessage = "";
-
+        if (numberOfString != 0) {
+            System.out.print(decor());
+            numberOfString = 0;
+            lastMessage = "";
+        }
     }
 
     @Override
@@ -56,7 +62,7 @@ public class StringCommand implements Command {
     @Override
     public void acc(Command lastCmd) {
         if (lastCmd == null) return;
-        if (lastCmd instanceof StringCommand) {
+        if (isSimilarType(lastCmd)) {
             lastMessage = ((StringCommand) lastCmd).getLastMessage();
             numberOfString = ((StringCommand) lastCmd).getNumberOfString();
             return;

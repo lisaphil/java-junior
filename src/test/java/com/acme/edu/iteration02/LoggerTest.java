@@ -118,7 +118,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //endregion
     }
- /*
-    TODO: implement Logger solution to match specification as tests
-    */
 }
