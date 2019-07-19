@@ -1,6 +1,12 @@
 package com.acme.edu.iteration03;
 
 import com.acme.edu.*;
+import com.acme.edu.IntMatrixCommand;
+import com.acme.edu.IntOneDimMassiveCommand;
+import com.acme.edu.command.Impl.ByteCommand;
+import com.acme.edu.command.Impl.IntCommand;
+import com.acme.edu.Logger.Logger;
+import com.acme.edu.command.Impl.StringCommand;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
