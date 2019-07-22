@@ -1,9 +1,12 @@
 package com.acme.edu.command.Impl;
 
-import com.acme.edu.Command;
+import com.acme.edu.command.Command;
+import com.acme.edu.command.Impl.massive.IntMassivesCommand;
+import com.acme.edu.command.comparable.Comparable;
+
 import static java.lang.System.lineSeparator;
 
-public class IntCommand implements Command {
+public class IntCommand implements Command, Comparable {
     private int value;
     private int message;
 
@@ -47,7 +50,7 @@ public class IntCommand implements Command {
 
     @Override
     public void acc(Command lastCmd) {
-        if (lastCmd == null) return;
+        if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         if (isSimilarType(lastCmd)) {
             value = ((IntCommand) lastCmd).getValue();
             return;

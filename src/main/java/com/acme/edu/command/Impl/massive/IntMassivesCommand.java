@@ -1,8 +1,10 @@
 package com.acme.edu.command.Impl.massive;
 
-import com.acme.edu.Command;
+import com.acme.edu.command.Command;
 
-public abstract class IntMassivesCommand implements Command {
+import static java.lang.System.lineSeparator;
+
+public abstract class  IntMassivesCommand implements Command {
 
     int[] message;
 
@@ -12,7 +14,7 @@ public abstract class IntMassivesCommand implements Command {
             newMessage += String.valueOf(message[i]) + ", ";
         }
         newMessage += String.valueOf(message[message.length - 1]) + "}";
-        return newMessage;
+        return newMessage + lineSeparator();
     }
 
     @Override
@@ -26,7 +28,7 @@ public abstract class IntMassivesCommand implements Command {
     }
 
     public void acc(Command lastCmd){
-        if (lastCmd == null) return;
+        if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         lastCmd.clean();
     }
 

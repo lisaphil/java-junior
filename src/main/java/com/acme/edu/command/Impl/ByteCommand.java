@@ -1,9 +1,12 @@
 package com.acme.edu.command.Impl;
 
-import com.acme.edu.Command;
+import com.acme.edu.command.Command;
+import com.acme.edu.command.Impl.massive.IntMassivesCommand;
+import com.acme.edu.command.comparable.Comparable;
+
 import static java.lang.System.lineSeparator;
 
-public class ByteCommand implements Command {
+public class ByteCommand implements Command, Comparable {
     private byte value;
     private byte message;
     //boolean cleanValue;
@@ -48,7 +51,7 @@ public class ByteCommand implements Command {
 
     @Override
     public void acc(Command lastCmd) {
-        if (lastCmd == null) return;
+        if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         if (isSimilarType(lastCmd)) {
             value = ((ByteCommand) lastCmd).getValue();
             return;

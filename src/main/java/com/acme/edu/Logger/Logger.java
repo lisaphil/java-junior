@@ -1,7 +1,7 @@
 package com.acme.edu.Logger;
 
 
-import com.acme.edu.Command;
+import com.acme.edu.command.Command;
 import com.acme.edu.command.Impl.massive.IntMassivesCommand;
 
 

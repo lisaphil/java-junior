@@ -57,7 +57,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
                 "{-1, 0, 1}" + lineSeparator() +
                 "{1, 2, 3}" + lineSeparator() +
                 "{-1, -2, -3}" + lineSeparator() +
-            "}" + lineSeparator());
+                "}" + lineSeparator());
         //endregion
     }
 
