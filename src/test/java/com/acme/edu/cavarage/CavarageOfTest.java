@@ -141,6 +141,24 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
+    public void shouldLogFirstIntTypeWithOverflowEqual() throws Exception {
+        //region when
+        tmp.log(new IntCommand(10));
+        tmp.log(new IntCommand( Integer.MAX_VALUE - 10));
+        tmp.log(new StringCommand("str2"));
+        tmp.log(new IntCommand(2));
+        tmp.flash();
+        //endregion
+
+        //region then
+        assertSysoutEquals( "primitive: " + Integer.MAX_VALUE + newLine
+                        + "string: str2" + newLine
+                        + "primitive: 2" + newLine
+        );
+        //endregion
+    }
+
+    @Test
     public void shouldLogIntAndNotAccumulate() throws Exception {
         //region when
         tmp.log(new IntCommand(70));
@@ -202,7 +220,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogFirstByteTypeWithOverflowEqual() throws Exception {
         //region when
         tmp.log(new ByteCommand((byte)70));
-        tmp.log(new ByteCommand((byte)(Byte.MAX_VALUE - (byte)70)));
+        tmp.log(new ByteCommand((byte)(Byte.MAX_VALUE - 70)));
         tmp.log(new StringCommand("str2"));
         tmp.log(new ByteCommand((byte)10));
         tmp.flash();

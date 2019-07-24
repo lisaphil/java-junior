@@ -2,15 +2,11 @@ package com.acme.edu.Logger;
 
 import com.acme.edu.command.Command;
 import com.acme.edu.command.Impl.ByteCommand;
-import com.acme.edu.command.Impl.IntCommand;
-import com.acme.edu.command.Impl.massive.IntMassivesCommand;
+
 import com.acme.edu.command.Impl.massive.IntOneDimMassiveCommand;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.stubbing.OngoingStubbing;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 /**
