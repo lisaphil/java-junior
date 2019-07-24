@@ -5,6 +5,7 @@ import com.acme.edu.command.Impl.ByteCommand;
 import com.acme.edu.command.Impl.IntCommand;
 import com.acme.edu.Logger.Logger;
 import com.acme.edu.command.Impl.StringCommand;
+import com.acme.edu.exception.FlushException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void shouldLogSequentIntegersAsSum() throws IOException {
+    public void shouldLogSequentIntegersAsSum() throws Exception {
         //region when
 
         Logger tmp = new Logger();
@@ -51,7 +52,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws Exception {
         //region when
         Logger tmp = new Logger();
         tmp.log(new StringCommand("str 1"));
@@ -73,7 +74,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws Exception {
         //region when
         Logger tmp = new Logger();
         tmp.log(new StringCommand("str 1"));
@@ -97,7 +98,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
+    public void shouldLogSameSubsequentStringsWithoutRepeat() throws Exception {
         //region when
         Logger tmp = new Logger();
 

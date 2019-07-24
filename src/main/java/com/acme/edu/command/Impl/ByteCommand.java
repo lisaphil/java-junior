@@ -18,7 +18,7 @@ public class ByteCommand implements Command, Comparable {
 
     boolean checkOverflow() {
         int result = message + value;
-        return result >= (int) Byte.MAX_VALUE;
+        return result > (int) Byte.MAX_VALUE;
     }
 
     public byte getValue() {
@@ -50,7 +50,7 @@ public class ByteCommand implements Command, Comparable {
     }
 
     @Override
-    public void acc(Command lastCmd) {
+    public void accamulate(Command lastCmd) {
         if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         if (isSimilarType(lastCmd)) {
             value = ((ByteCommand) lastCmd).getValue();

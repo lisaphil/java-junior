@@ -5,5 +5,5 @@ public interface Command {
     void clean();
 
     String decor();
-    void acc(Command lastCmd);
+    void accamulate(Command lastCmd);
 }

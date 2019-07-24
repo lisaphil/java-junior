@@ -17,7 +17,7 @@ public class IntCommand implements Command, Comparable {
 
     private boolean checkOverflow() {
         long result = (long) message + value;
-        return result >= (long) Integer.MAX_VALUE;
+        return result > (long) Integer.MAX_VALUE;
     }
 
     public int getValue() {
@@ -49,7 +49,7 @@ public class IntCommand implements Command, Comparable {
     }
 
     @Override
-    public void acc(Command lastCmd) {
+    public void accamulate(Command lastCmd) {
         if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         if (isSimilarType(lastCmd)) {
             value = ((IntCommand) lastCmd).getValue();

@@ -64,7 +64,7 @@ public class StringCommand implements Command, Comparable {
     }
 
     @Override
-    public void acc(Command lastCmd) {
+    public void accamulate(Command lastCmd) {
         if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         if (isSimilarType(lastCmd)) {
             lastMessage = ((StringCommand) lastCmd).getLastMessage();

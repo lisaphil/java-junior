@@ -27,7 +27,7 @@ public abstract class  IntMassivesCommand implements Command {
         System.out.print(decor());
     }
 
-    public void acc(Command lastCmd){
+    public void accamulate(Command lastCmd){
         if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
         lastCmd.clean();
     }

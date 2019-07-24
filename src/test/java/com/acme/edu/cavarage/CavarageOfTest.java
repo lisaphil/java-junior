@@ -2,11 +2,14 @@ package com.acme.edu.cavarage;
 
 import com.acme.edu.Logger.Logger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.command.Command;
 import com.acme.edu.command.Impl.ByteCommand;
 import com.acme.edu.command.Impl.IntCommand;
 import com.acme.edu.command.Impl.StringCommand;
 import com.acme.edu.command.Impl.massive.IntMatrixCommand;
 import com.acme.edu.command.Impl.massive.IntOneDimMassiveCommand;
+import com.acme.edu.exception.FlushException;
+import com.acme.edu.exception.IllegalArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +28,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 //======================================================================================================================
     @Test
-    public void shouldLogSameStrings() throws IOException {
+    public void shouldLogSameStrings() throws Exception {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new StringCommand("str1"));
@@ -42,7 +45,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogDifferentStringsAndNotAccumulate() throws IOException {
+    public void shouldLogDifferentStringsAndNotAccumulate() throws Exception {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new StringCommand("str2"));
@@ -59,7 +62,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
     @Test
-    public void shouldLogSameStringsAndNotAccumulateNotTogether() throws IOException {
+    public void shouldLogSameStringsAndNotAccumulateNotTogether() throws Exception {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntCommand(10));
@@ -77,7 +80,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogStringsAndAccumulateIntType() throws IOException {
+    public void shouldLogStringsAndAccumulateIntType() throws Exception {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntCommand(10));
@@ -99,7 +102,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
     //======================================================================================================================
     @Test
-    public void shouldLogFirstIntType() throws IOException {
+    public void shouldLogFirstIntType() throws Exception{
         //region when
         tmp.log(new IntCommand(10));
         tmp.log(new IntCommand(33));
@@ -118,7 +121,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogFirstIntTypeWithOverflow() throws IOException {
+    public void shouldLogFirstIntTypeWithOverflow() throws Exception {
         //region when
         tmp.log(new IntCommand(10));
         tmp.log(new IntCommand( Integer.MAX_VALUE));
@@ -138,7 +141,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntAndNotAccumulate() throws IOException {
+    public void shouldLogIntAndNotAccumulate() throws Exception {
         //region when
         tmp.log(new IntCommand(70));
         tmp.log(new StringCommand("str1"));
@@ -156,8 +159,9 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     //======================================================================================================================
 
     @Test
-    public void shouldLogFirstByteType() throws IOException {
+    public void shouldLogFirstByteType() throws Exception {
         //region when
+
         tmp.log(new ByteCommand((byte)10));
         tmp.log(new ByteCommand((byte)33));
         tmp.log(new StringCommand("str2"));
@@ -175,7 +179,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogFirstByteTypeWithOverflow() throws IOException {
+    public void shouldLogFirstByteTypeWithOverflow() throws Exception {
         //region when
         tmp.log(new ByteCommand((byte)70));
         tmp.log(new ByteCommand(Byte.MAX_VALUE));
@@ -195,7 +199,25 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogByteAndNotAccumulate() throws IOException {
+    public void shouldLogFirstByteTypeWithOverflowEqual() throws Exception {
+        //region when
+        tmp.log(new ByteCommand((byte)70));
+        tmp.log(new ByteCommand((byte)(Byte.MAX_VALUE - (byte)70)));
+        tmp.log(new StringCommand("str2"));
+        tmp.log(new ByteCommand((byte)10));
+        tmp.flash();
+        //endregion
+
+        //region then
+        assertSysoutEquals("primitive: " + Byte.MAX_VALUE + newLine
+                        + "string: str2" + newLine
+                        + "primitive: 10" + newLine
+        );
+        //endregion
+    }
+
+    @Test
+    public void shouldLogByteAndNotAccumulate() throws Exception {
         //region when
         tmp.log(new ByteCommand((byte)70));
         tmp.log(new StringCommand("str1"));
@@ -213,7 +235,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
 
     //======================================================================================================================
     @Test
-    public void shouldLogFirstIntMass() throws IOException {
+    public void shouldLogFirstIntMass() throws Exception {
         //region when
         tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
         tmp.log(new StringCommand("str1"));
@@ -229,7 +251,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogSecondIntMassType() throws IOException {
+    public void shouldLogSecondIntMassType() throws Exception {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
@@ -244,7 +266,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogMassAndNotAccumulate() throws IOException {
+    public void shouldLogMassAndNotAccumulate() throws Exception {
         //region when
         tmp.log(new IntOneDimMassiveCommand(new int[] {-7, 9, 100}));
         tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
@@ -262,7 +284,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
     //======================================================================================================================
     @Test
-    public void shouldLogFirstIntMatrix() throws IOException {
+    public void shouldLogFirstIntMatrix() throws Exception {
         //region when
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
         tmp.log(new StringCommand("str1"));
@@ -283,7 +305,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogSecondIntMatrixType() throws IOException {
+    public void shouldLogSecondIntMatrixType() throws Exception {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
@@ -303,7 +325,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogMatrixAndNotAccumulate() throws IOException {
+    public void shouldLogMatrixAndNotAccumulate() throws Exception {
         //region when
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {3, 3, 3}, {-5, -5, -5}}));
@@ -324,6 +346,30 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
                 "}" + lineSeparator()
                 +"string: str1"  + newLine
         );
+        //endregion
+    }
+
+    //====================================================================================================
+    @Test(expected = FlushException.class)
+    public void shouldNotBeFlushed() throws Exception {
+        //region when
+            tmp.flash();
+        //endregion
+
+        //region then
+
+        //endregion
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void commandShouldNotBeNull() throws Exception {
+        //region when
+        tmp.log(null);
+        tmp.flash();
+        //endregion
+
+        //region then
+
         //endregion
     }
 }
