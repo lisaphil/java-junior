@@ -6,4 +6,5 @@ public interface Command {
 
     String decor();
     String accamulate(Command lastCmd);
+    
 }
