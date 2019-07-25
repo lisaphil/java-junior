@@ -26,22 +26,25 @@ public class ByteCommand implements Command, Comparable {
     }
 
     @Override
-    public boolean isSimilarType(Command cmd) {
-        return cmd instanceof ByteCommand;
+    public boolean isSimilarType(Command command) {
+        return command instanceof ByteCommand;
     }
 
     @Override
-    public void handle() {
+    public String handle() {
+        String cleanResult = "";
         if (checkOverflow()) {
-            clean();
+            cleanResult = clean();
         }
         value += message;
+        return cleanResult;
     }
 
     @Override
-    public void clean() {
-        System.out.print(decor());
+    public String clean() {
+        String decor = decor();
         value = 0;
+        return decor;
     }
 
     @Override
@@ -50,13 +53,13 @@ public class ByteCommand implements Command, Comparable {
     }
 
     @Override
-    public void accamulate(Command lastCmd) {
-        if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
-        if (isSimilarType(lastCmd)) {
-            value = ((ByteCommand) lastCmd).getValue();
-            return;
+    public String accamulate(Command lastCommand) {
+        if (lastCommand == null || lastCommand instanceof IntMassivesCommand) return "";
+        if (isSimilarType(lastCommand)) {
+            value = ((ByteCommand) lastCommand).getValue();
+            return "";
         }
-        lastCmd.clean();
+        return lastCommand.clean();
     }
 
 }

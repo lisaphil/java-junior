@@ -18,18 +18,18 @@ public abstract class  IntMassivesCommand implements Command {
     }
 
     @Override
-    public void handle() {
-        clean();
+    public String handle() {
+        return clean();
     }
 
     @Override
-    public void clean() {
-        System.out.print(decor());
+    public String clean() {
+        return decor();
     }
 
-    public void accamulate(Command lastCmd){
-        if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
-        lastCmd.clean();
+    public String accamulate(Command lastCommand){
+        if (lastCommand == null || lastCommand instanceof IntMassivesCommand) return "";
+        return lastCommand.clean();
     }
 
     public abstract String decor();

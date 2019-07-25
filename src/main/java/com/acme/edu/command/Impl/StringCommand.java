@@ -30,28 +30,32 @@ public class StringCommand implements Command, Comparable {
     }
 
     @Override
-    public boolean isSimilarType(Command cmd) {
-        return cmd instanceof StringCommand;
+    public boolean isSimilarType(Command command) {
+        return command instanceof StringCommand;
     }
 
     @Override
-    public void handle() {
+    public String handle() {
+        String cleanResult = "";
         if (isSimilarValue()) {
             numberOfString++;
         } else {
-            clean();
+            cleanResult = clean();
             numberOfString = 1;
             lastMessage = message;
         }
+        return cleanResult;
     }
 
     @Override
-    public void clean() {
+    public String clean() {
+        String decor = "";
         if (numberOfString != 0) {
-            System.out.print(decor());
+            decor = decor();
             numberOfString = 0;
             lastMessage = "";
         }
+        return decor;
     }
 
     @Override
@@ -64,13 +68,13 @@ public class StringCommand implements Command, Comparable {
     }
 
     @Override
-    public void accamulate(Command lastCmd) {
-        if (lastCmd == null || lastCmd instanceof IntMassivesCommand) return;
-        if (isSimilarType(lastCmd)) {
-            lastMessage = ((StringCommand) lastCmd).getLastMessage();
-            numberOfString = ((StringCommand) lastCmd).getNumberOfString();
-            return;
+    public String accamulate(Command lastCommand) {
+        if (lastCommand == null || lastCommand instanceof IntMassivesCommand) return "";
+        if (isSimilarType(lastCommand)) {
+            lastMessage = ((StringCommand) lastCommand).getLastMessage();
+            numberOfString = ((StringCommand) lastCommand).getNumberOfString();
+            return "";
         }
-        lastCmd.clean();
+        return lastCommand.clean();
     }
 }

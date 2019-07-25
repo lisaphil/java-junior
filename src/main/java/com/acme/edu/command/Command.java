@@ -1,9 +1,9 @@
 package com.acme.edu.command;
 
 public interface Command {
-    void handle();
-    void clean();
+    String handle();
+    String clean();
 
     String decor();
-    void accamulate(Command lastCmd);
+    String accamulate(Command lastCmd);
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.*;
 
+/*
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
@@ -34,7 +35,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntCommand(1));
         tmp.log(new IntCommand(0));
         tmp.log(new IntCommand(-1));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -53,7 +54,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new ByteCommand((byte)1));
         tmp.log(new ByteCommand((byte)0));
         tmp.log(new ByteCommand((byte)-1));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -69,7 +70,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         tmp.log(new StringCommand("test string 1"));
         tmp.log(new StringCommand("other str"));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -78,7 +79,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
-    /*
-    TODO: implement Logger solution to match specification as tests
     */
-}
+/*
+    TODO: implement Logger solution to match specification as tests
+    *//*
+
+}*/

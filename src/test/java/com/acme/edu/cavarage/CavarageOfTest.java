@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import static java.lang.System.lineSeparator;
 
+/*
 public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     private Logger tmp = new Logger();
     final String newLine = lineSeparator();
@@ -33,7 +34,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new StringCommand("str1"));
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntCommand(10));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -50,7 +51,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new StringCommand("str1"));
         tmp.log(new StringCommand("str2"));
         tmp.log(new IntCommand(10));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -67,7 +68,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntCommand(10));
         tmp.log(new StringCommand("str1"));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -87,7 +88,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntCommand(33));
         tmp.log(new StringCommand("str2"));
         tmp.log(new IntCommand(2));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -108,7 +109,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntCommand(33));
         tmp.log(new StringCommand("str2"));
         tmp.log(new IntCommand(2));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -127,7 +128,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntCommand( Integer.MAX_VALUE));
         tmp.log(new StringCommand("str2"));
         tmp.log(new IntCommand(2));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -147,7 +148,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntCommand( Integer.MAX_VALUE - 10));
         tmp.log(new StringCommand("str2"));
         tmp.log(new IntCommand(2));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -164,7 +165,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntCommand(70));
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntCommand(10));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -184,7 +185,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new ByteCommand((byte)33));
         tmp.log(new StringCommand("str2"));
         tmp.log(new ByteCommand((byte)2));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -203,7 +204,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new ByteCommand(Byte.MAX_VALUE));
         tmp.log(new StringCommand("str2"));
         tmp.log(new ByteCommand((byte)10));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -223,7 +224,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new ByteCommand((byte)(Byte.MAX_VALUE - 70)));
         tmp.log(new StringCommand("str2"));
         tmp.log(new ByteCommand((byte)10));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -240,7 +241,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new ByteCommand((byte)70));
         tmp.log(new StringCommand("str1"));
         tmp.log(new ByteCommand((byte)10));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -257,7 +258,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         //region when
         tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
         tmp.log(new StringCommand("str1"));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -273,7 +274,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -289,7 +290,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntOneDimMassiveCommand(new int[] {-7, 9, 100}));
         tmp.log(new IntOneDimMassiveCommand(new int[] {-1, 0, 1}));
         tmp.log(new StringCommand("str1"));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -306,7 +307,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         //region when
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
         tmp.log(new StringCommand("str1"));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -327,7 +328,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         //region when
         tmp.log(new StringCommand("str1"));
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -348,7 +349,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}}));
         tmp.log(new IntMatrixCommand(new int[][] {{-1, 0, 1}, {3, 3, 3}, {-5, -5, -5}}));
         tmp.log(new StringCommand("str1"));
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -371,7 +372,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     @Test(expected = FlushException.class)
     public void shouldNotBeFlushed() throws Exception {
         //region when
-            tmp.flash();
+            tmp.flush();
         //endregion
 
         //region then
@@ -383,7 +384,7 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
     public void commandShouldNotBeNull() throws Exception {
         //region when
         tmp.log(null);
-        tmp.flash();
+        tmp.flush();
         //endregion
 
         //region then
@@ -391,3 +392,4 @@ public class CavarageOfTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 }
+*/
