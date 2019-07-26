@@ -14,7 +14,7 @@ public class Logger {
 
     private Command lastCommand;
 
-    private String buffer;
+    public String buffer;
     //private BufferedWriter writer;
     private LogSaver saver;
 
@@ -46,9 +46,11 @@ public class Logger {
     }
 
     public void log(Command command) throws IllegalArgumentException {
+       // System.out.println("AAA");
         if (command == null) throw new IllegalArgumentException();
         String message = command.accamulate(lastCommand) + command.handle();
         buffer += message;
         lastCommand = command;
+
     }
 }
