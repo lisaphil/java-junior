@@ -1,20 +1,19 @@
 package com.acme.edu.client;
 
-import com.acme.edu.command.Command;
-import com.acme.edu.command.Impl.IntCommand;
-
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 /**
- * Created by Java_2 on 26.07.2019.
+ * Created by Java_2 on 29.07.2019.
  */
-public class ClientProxy {
-
+public class ClientProxySecond {
     private static void log(String command, BufferedWriter out) throws IOException {
-            out.write(command);
-            out.newLine();
-            out.flush();
+        out.write(command);
+        out.newLine();
+        out.flush();
     }
 
     public static void main(String[] args) {
@@ -24,9 +23,9 @@ public class ClientProxy {
                                  new OutputStreamWriter(
                                          new BufferedOutputStream(
                                                  server.getOutputStream(), 10)))) {
-                log("IntCommand:5", out);
-                log("IntCommand:7", out);
-                log("StringCommand:str2", out);
+                log("StringCommand:str", out);
+                log("StringCommand:str", out);
+                log("IntCommand:20", out);
                 log("flush", out);
                 //log("IntCommand: 6", out, in);
             } catch (IOException e) {
@@ -37,8 +36,4 @@ public class ClientProxy {
         }
     }
 }
-    /*final BufferedReader in =
-            new BufferedReader(
-                    new InputStreamReader(
-                            new BufferedInputStream(
-                                    server.getInputStream(), 100)));*/
+

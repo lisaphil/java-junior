@@ -1,2 +1,2 @@
-primitive: 12
-string: str2
+string: str (x2)
+primitive: 20
